@@ -17,6 +17,14 @@ spec:
       containers:
       - name: python-app-container
         image: konark111/python-kub-dep
+        volumeMounts:
+        - name: db-connect
+          mountPath: /opt
         ports:
         - containerPort: 8000
           protocol: TCP
+      volumes:
+      - name: db-connect
+        configMap: 
+          name: python-cm
+
