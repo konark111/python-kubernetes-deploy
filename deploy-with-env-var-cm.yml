@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-deployment
+  labels:
+    app: python
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: python
+  template:
+    metadata:
+      labels:
+        app: python
+    spec:
+      containers:
+      - name: python-app-container
+        image: konark111/python-kub-dep
+        env:
+          - name: db-port
+            valueFrom:
+              configMapKeyRef:
+               name: python-cm
+               key: db-port
+        ports:
+        - containerPort: 8000
+          protocol: TCP
